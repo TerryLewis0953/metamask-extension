@@ -111,6 +111,7 @@ export default class PreferencesController {
       ///: END:ONLY_INCLUDE_IF
       isLineaMainnetReleased: false,
       useExternalNameSources: true,
+      disableExternalServices: false,
       ...opts.initState,
     };
 
@@ -202,6 +203,10 @@ export default class PreferencesController {
    */
   setUseSafeChainsListValidation(val) {
     this.store.updateState({ useSafeChainsListValidation: val });
+  }
+
+  setDisableExternalServices(disableExternalServices) {
+    this.store.updateState({ disableExternalServices });
   }
 
   /**
