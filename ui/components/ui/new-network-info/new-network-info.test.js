@@ -110,13 +110,13 @@ describe('NewNetworkInfo', () => {
         expect(getByTestId('new-network-info__wrapper')).toBeInTheDocument();
       });
       // render title
-      expect(getByText("You're now on")).toBeInTheDocument();
+      expect(getByText("You're now using")).toBeInTheDocument();
       // render the network name
       expect(getByText('Ethereum Mainnet')).toBeInTheDocument();
       expect(
         getByTestId('new-network-info__bullet-paragraph').textContent,
       ).toMatchInlineSnapshot(
-        `"• ETH is the token used for gas fees on this network. "`,
+        `"Gas is ETHThe native token on this network is ETH. It is the token used for gas fees."`,
       );
     });
 
