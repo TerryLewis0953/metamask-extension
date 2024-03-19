@@ -2201,6 +2201,10 @@ export function getOnboardedInThisUISession(state) {
   return state.appState.onboardedInThisUISession;
 }
 
+export function getShowBasicFunctionalityModal(state) {
+  return state.appState.showBasicFunctionalityModal;
+}
+
 export const useSafeChainsListValidationSelector = (state) => {
   return state.metamask.useSafeChainsListValidation;
 };

@@ -95,7 +95,8 @@ function mapStateToProps(state) {
     isAccountMenuOpen: state.metamask.isAccountMenuOpen,
     isNetworkMenuOpen: state.metamask.isNetworkMenuOpen,
     isImportTokensModalOpen: state.appState.importTokensModalOpen,
-    isBasicConfigurationModalOpen: state.appState.showBasicFunctionalityModal,
+    isBasicConfigurationModalOpen:
+      state.appState.showBasicFunctionalityModal.open,
     isDeprecatedNetworkModalOpen: state.appState.deprecatedNetworkModalOpen,
     accountDetailsAddress: state.appState.accountDetailsAddress,
     isImportNftsModalOpen: state.appState.importNftsModal.open,

@@ -146,7 +146,7 @@ const mapStateToProps = (state) => {
 
   return {
     disableExternalServices: getDisableExternalServices(state),
-    isBasicConfigurationModalOpen: appState.showBasicFunctionalityModal,
+    isBasicConfigurationModalOpen: appState.showBasicFunctionalityModal.open,
     forgottenPassword,
     hasWatchTokenPendingApprovals,
     hasWatchNftPendingApprovals,

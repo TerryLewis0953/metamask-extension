@@ -2569,15 +2569,21 @@ export function showImportNftsModal(payload: {
   };
 }
 
-export function openBasicFunctionalityModal(): Action {
+export function openBasicFunctionalityModal(payload: {
+  onboardingFlow?: boolean;
+}): Action {
   return {
     type: actionConstants.SHOW_BASIC_FUNCTIONALITY_MODAL_OPEN,
+    payload,
   };
 }
 
-export function hideBasicFunctionalityModal(): Action {
+export function hideBasicFunctionalityModal(payload: {
+  incomingDisableExternalServices?: boolean;
+}): Action {
   return {
     type: actionConstants.SHOW_BASIC_FUNCTIONALITY_MODAL_CLOSE,
+    payload,
   };
 }
 

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { addUrlProtocolPrefix } from '../../../../app/scripts/lib/util';
@@ -28,7 +28,11 @@ import {
 } from '../../../helpers/constants/design-system';
 import { ONBOARDING_PIN_EXTENSION_ROUTE } from '../../../helpers/constants/routes';
 import { useI18nContext } from '../../../hooks/useI18nContext';
-import { getAllNetworks, getCurrentNetwork } from '../../../selectors';
+import {
+  getAllNetworks,
+  getCurrentNetwork,
+  getShowBasicFunctionalityModal,
+} from '../../../selectors';
 import {
   setCompletedOnboarding,
   setIpfsGateway,
@@ -41,6 +45,8 @@ import {
   showModal,
   toggleNetworkMenu,
   setIncomingTransactionsPreferences,
+  setDisableExternalServices,
+  openBasicFunctionalityModal,
 } from '../../../store/actions';
 import IncomingTransactionToggle from '../../../components/app/incoming-trasaction-toggle/incoming-transaction-toggle';
 import { Setting } from './setting';
@@ -53,6 +59,7 @@ export default function PrivacySettings() {
   const defaultState = useSelector((state) => state.metamask);
   const {
     incomingTransactionsPreferences,
+    disableExternalServices,
     usePhishDetect,
     use4ByteResolution,
     useTokenDetection,
@@ -70,7 +77,15 @@ export default function PrivacySettings() {
     useState(useTokenDetection);
   const [turnOnCurrencyRateCheck, setTurnOnCurrencyRateCheck] =
     useState(useCurrencyRateCheck);
-
+  // create a custom setTurnOnBasicConfiguration function that opens the modal using the action openBasicFunctionalityModal if the user is turning off the basic configuration
+  const [turnOnBasicConfiguration, setTurnOnBasicConfiguration] = useState(
+    !disableExternalServices,
+  );
+  useEffect(() => {
+    if (!turnOnBasicConfiguration) {
+      dispatch(openBasicFunctionalityModal({ onboardingFlow: true }));
+    }
+  }, [turnOnBasicConfiguration, dispatch]);
   const [
     isMultiAccountBalanceCheckerEnabled,
     setMultiAccountBalanceCheckerEnabled,
@@ -84,8 +99,13 @@ export default function PrivacySettings() {
   const trackEvent = useContext(MetaMetricsContext);
   const currentNetwork = useSelector(getCurrentNetwork);
   const allNetworks = useSelector(getAllNetworks);
+  const { incomingDisableExternalServices } = useSelector(
+    getShowBasicFunctionalityModal,
+  );
 
   const handleSubmit = () => {
+    // dispatch(setDisableExternalServices(!turnOnBasicConfiguration));
+    dispatch(setDisableExternalServices(incomingDisableExternalServices));
     dispatch(setUsePhishDetect(usePhishingDetection));
     dispatch(setUse4ByteResolution(turnOn4ByteResolution));
     dispatch(setUseTokenDetection(turnOnTokenDetection));
@@ -142,6 +162,13 @@ export default function PrivacySettings() {
           className="privacy-settings__settings"
           data-testid="privacy-settings-settings"
         >
+          <Setting
+            value={turnOnBasicConfiguration}
+            setValue={setTurnOnBasicConfiguration}
+            title={t('basicConfigurationLabel')}
+            description={t('basicConfigurationDescription')}
+          />
+
           <IncomingTransactionToggle
             allNetworks={allNetworks}
             setIncomingTransactionsPreferences={(chainId, value) =>

@@ -29,7 +29,10 @@ import {
   IconSize,
   Checkbox,
 } from '../../component-library';
-import { getDisableExternalServices } from '../../../selectors';
+import {
+  getDisableExternalServices,
+  getShowBasicFunctionalityModal,
+} from '../../../selectors';
 
 export function BasicConfigurationModal() {
   const t = useI18nContext();
@@ -38,6 +41,8 @@ export function BasicConfigurationModal() {
   const isBasicConfigurationSettingOff = useSelector(
     getDisableExternalServices,
   );
+  const { onboardingFlow } = useSelector(getShowBasicFunctionalityModal);
+
   function disableExternalServices() {
     dispatch(setDisableExternalServices(true));
   }
@@ -46,7 +51,10 @@ export function BasicConfigurationModal() {
   }
 
   function closeModal() {
-    dispatch(hideBasicFunctionalityModal());
+    // might need to be !isBasicConfigurationSettingOff
+    dispatch(
+      hideBasicFunctionalityModal({ incomingDisableExternalServices: false }),
+    );
   }
 
   return (
@@ -133,9 +141,16 @@ export function BasicConfigurationModal() {
               variant={ButtonVariant.Secondary}
               onClick={() => {
                 closeModal();
-                isBasicConfigurationSettingOff
-                  ? enableExternalServices()
-                  : disableExternalServices();
+                if (onboardingFlow) {
+                  // pass back isBasicConfigurationSettingOff to the onboarding flow
+                  hideBasicFunctionalityModal({
+                    incomingDisableExternalServices: true,
+                  });
+                } else {
+                  isBasicConfigurationSettingOff
+                    ? enableExternalServices()
+                    : disableExternalServices();
+                }
               }}
               danger
             >
