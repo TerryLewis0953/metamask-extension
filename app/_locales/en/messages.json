@@ -340,6 +340,9 @@
   "alertModalAcknowledge": {
     "message": "Acknowledge"
   },
+  "alertModalDetails": {
+    "message": "Alert Details"
+  },
   "alertSettingsUnconnectedAccount": {
     "message": "Browsing a website with an unconnected account selected"
   },
