@@ -248,20 +248,7 @@ export default function NewNetworkInfo() {
                   color={Color.textDefault}
                   display={Display.InlineBlock}
                 >
-                  {t('tokenShowUp', [
-                    <Button
-                      variant="link"
-                      onClick={addTokenManually}
-                      className="new-network-info__button"
-                      key="manually-add-tokens-button"
-                      size={ButtonLinkSize.Inherit}
-                      textProps={{
-                        color: Color.infoDefault,
-                      }}
-                    >
-                      {t('clickToManuallyAdd')}
-                    </Button>,
-                  ])}
+                  {t('tokenShowUp')}
                 </Text>
               </Box>
             ) : null}

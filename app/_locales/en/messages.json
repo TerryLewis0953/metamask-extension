@@ -762,9 +762,6 @@
     "message": "Click here to connect your Ledger via WebHID",
     "description": "Text that can be clicked to open a browser popup for connecting the ledger device via webhid"
   },
-  "clickToManuallyAdd": {
-    "message": "Click here to manually add the tokens."
-  },
   "close": {
     "message": "Close"
   },
@@ -5437,7 +5434,7 @@
     "message": "token scams and security risks"
   },
   "tokenShowUp": {
-    "message": "Your tokens may not automatically show up in your wallet. $1"
+    "message": "Your tokens may not automatically show up in your wallet. You can always add tokens manually."
   },
   "tokenSymbol": {
     "message": "Token symbol"
